@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: minha-agenda
+    env: docker
+    plan: free
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_PATH
+        value: /var/data/database.db
+    disk:
+      name: agenda-data
+      mountPath: /var/data
+      sizeGB: 1
