@@ -113,4 +113,15 @@ async function loadContacts() {
     });
 }
 
+function updateStats(total, filtered) {
+    document.getElementById('totalContacts').textContent = total;
+    document.getElementById('filteredContacts').textContent = filtered;
+}
+
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
 loadContacts();
