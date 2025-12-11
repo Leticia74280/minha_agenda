@@ -3,9 +3,29 @@ const contactList = document.getElementById('contactList');
 const idInput = document.getElementById('userId');
 const btnSave = document.getElementById('btnSave');
 const btnCancel = document.getElementById('btnCancel');
+const themeToggle = document.getElementById('themeToggle');
 const searchInput = document.getElementById('searchInput');
 
 let allContacts = [];
+
+//modo noturno
+const savedTheme = localStorage.getItem('theme') || 'light';
+document.documentElement.setAttribute('data-theme', savedTheme);
+updateThemeIcon(savedTheme);
+
+themeToggle.addEventListener('click', () => {
+    const currentTheme = document.documentElement.getAttribute('data-theme');
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+    updateThemeIcon(newTheme);
+});
+
+function updateThemeIcon(theme) {
+    themeToggle.textContent = theme === 'light' ? '🌙' : '☀️';
+    themeToggle.title = theme === 'light' ? 'Ativar modo escuro' : 'Ativar modo claro';
+}
 
 //busca
 searchInput.addEventListener('input', (e) => {
