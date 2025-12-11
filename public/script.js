@@ -3,6 +3,30 @@ const contactList = document.getElementById('contactList');
 const idInput = document.getElementById('userId');
 const btnSave = document.getElementById('btnSave');
 const btnCancel = document.getElementById('btnCancel');
+const searchInput = document.getElementById('searchInput');
+
+let allContacts = [];
+
+//busca
+searchInput.addEventListener('input', (e) => {
+    const searchTerm = e.target.value.toLowerCase().trim();
+    filterContacts(searchTerm);
+});
+
+function filterContacts(searchTerm) {
+    if (!searchTerm) {
+        renderContacts(allContacts);
+        return;
+    }
+
+    const filtered = allContacts.filter(contact => {
+        return contact.name.toLowerCase().includes(searchTerm) ||
+               contact.phone.toLowerCase().includes(searchTerm) ||
+               contact.email.toLowerCase().includes(searchTerm);
+    });
+
+    renderContacts(filtered);
+}
 
 // 1. Enviar Formulário (Decide entre Criar ou Editar)
 form.addEventListener('submit', async (e) => {
@@ -72,25 +96,55 @@ window.resetForm = () => {
 
 // 5. Carregar Lista
 async function loadContacts() {
-    const response = await fetch('/api/contacts');
-    const result = await response.json();
+    try {
+        const response = await fetch('/api/contacts');
+        const result = await response.json();
+        allContacts = result.data;
+        
+        const searchTerm = searchInput.value.toLowerCase().trim();
+        if (searchTerm) {
+            filterContacts(searchTerm);
+        } else {
+            renderContacts(allContacts);
+        }
+        
+        updateStats(allContacts.length, contactList.children.length);
+    } catch (error) {
+        console.error(error);
+        contactList.innerHTML = '<li class="no-results">❌ Erro ao carregar contatos</li>';
+    }
+}
+
+function renderContacts(contacts) {
     contactList.innerHTML = '';
 
-    result.data.forEach(c => {
+    if (contacts.length === 0) {
+        const searchTerm = searchInput.value.trim();
+        const message = searchTerm 
+            ? `Nenhum contato encontrado para "${searchTerm}"` 
+            : 'Nenhum contato cadastrado ainda';
+        contactList.innerHTML = `<li class="no-results">📭 ${message}</li>`;
+        updateStats(allContacts.length, 0);
+        return;
+    }
+
+    contacts.forEach(c => {
         const li = document.createElement('li');
         li.innerHTML = `
             <div class="info">
-                <strong>${c.name}</strong>
-                <span>📞 ${c.phone}</span>
-                <span>✉️ ${c.email}</span>
+                <strong>${escapeHtml(c.name)}</strong>
+                <span>📞 ${escapeHtml(c.phone)}</span>
+                <span>✉️ ${escapeHtml(c.email)}</span>
             </div>
             <div class="actions">
-                <button class="btn-edit" onclick="startEdit('${c.id}', '${c.name}', '${c.phone}', '${c.email}')">Editar</button>
+                <button class="btn-edit" onclick="startEdit('${c.id}', '${escapeHtml(c.name)}', '${escapeHtml(c.phone)}', '${escapeHtml(c.email)}')">Editar</button>
                 <button class="btn-delete" onclick="deleteContact('${c.id}')">Excluir</button>
             </div>
         `;
         contactList.appendChild(li);
     });
+
+    updateStats(allContacts.length, contacts.length);
 }
 
 loadContacts();
