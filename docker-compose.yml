@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  app-agenda:
+    build: .
+    container_name: minha-agenda-container
+    ports:
+      - "3000:3000"
+    volumes:
+      # Mapeia o arquivo do host para o container.
+      # Assim, o arquivo database.db fica salvo no seu computador real.
+      - ./database.db:/app/database.db
+    restart: always
