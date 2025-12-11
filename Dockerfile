@@ -1,6 +1,8 @@
 # 1. Escolhemos uma imagem base leve com Node.js pré-instalado
 FROM node:22-alpine
 
+RUN apk add --no-cache wget
+
 # 2. Definimos a pasta de trabalho dentro do container
 WORKDIR /app
 
