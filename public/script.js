@@ -150,21 +150,52 @@ function renderContacts(contacts) {
 
     contacts.forEach(c => {
         const li = document.createElement('li');
-        li.innerHTML = `
-            <div class="info">
-                <strong>${escapeHtml(c.name)}</strong>
-                <span>📞 ${escapeHtml(c.phone)}</span>
-                <span>✉️ ${escapeHtml(c.email)}</span>
-            </div>
-            <div class="actions">
-                <button class="btn-edit" onclick="startEdit('${c.id}', '${escapeHtml(c.name)}', '${escapeHtml(c.phone)}', '${escapeHtml(c.email)}')">Editar</button>
-                <button class="btn-delete" onclick="deleteContact('${c.id}')">Excluir</button>
-            </div>
-        `;
+        
+        // Criar elementos de forma segura
+        const infoDiv = document.createElement('div');
+        infoDiv.className = 'info';
+        
+        const nameStrong = document.createElement('strong');
+        nameStrong.textContent = c.name;
+        
+        const phoneSpan = document.createElement('span');
+        phoneSpan.textContent = `📞 ${c.phone}`;
+        
+        const emailSpan = document.createElement('span');
+        emailSpan.textContent = `✉️ ${c.email}`;
+        
+        infoDiv.appendChild(nameStrong);
+        infoDiv.appendChild(phoneSpan);
+        infoDiv.appendChild(emailSpan);
+        
+        // Criar botões de ação
+        const actionsDiv = document.createElement('div');
+        actionsDiv.className = 'actions';
+        
+        const btnEdit = document.createElement('button');
+        btnEdit.className = 'btn-edit';
+        btnEdit.textContent = 'Editar';
+        btnEdit.onclick = () => startEdit(c.id, c.name, c.phone, c.email);
+        
+        const btnDelete = document.createElement('button');
+        btnDelete.className = 'btn-delete';
+        btnDelete.textContent = 'Excluir';
+        btnDelete.onclick = () => deleteContact(c.id);
+        
+        actionsDiv.appendChild(btnEdit);
+        actionsDiv.appendChild(btnDelete);
+        
+        li.appendChild(infoDiv);
+        li.appendChild(actionsDiv);
         contactList.appendChild(li);
     });
 
     updateStats(allContacts.length, contacts.length);
+}
+
+function updateStats(total, filtered) {
+    document.getElementById('totalContacts').textContent = total;
+    document.getElementById('filteredContacts').textContent = filtered;
 }
 
 loadContacts();
