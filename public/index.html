@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agenda</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; max-width: 600px; margin: 2rem auto; padding: 20px; background-color: #f4f6f9; }
+        h2 { text-align: center; color: #333; }
+        form { background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: 600; color: #555; }
+        input { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; }
+        button#btnSave { width: 100%; padding: 12px; background-color: #28a745; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; transition: 0.3s; }
+        button#btnSave:hover { background-color: #218838; }
+        
+        ul { list-style: none; padding: 0; margin-top: 30px; }
+        li { background: white; margin-bottom: 15px; padding: 15px; border-radius: 8px; border-left: 5px solid #007bff; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .info strong { display: block; font-size: 1.1em; color: #333; }
+        .info span { display: block; color: #666; font-size: 0.9em; margin-top: 2px; }
+        .actions button { padding: 6px 12px; border: none; border-radius: 4px; cursor: pointer; margin-left: 5px; font-size: 0.9em; }
+        .btn-edit { background-color: #ffc107; color: #333; }
+        .btn-delete { background-color: #dc3545; color: white; }
+    </style>
+</head>
+<body>
+    <h2>📒 Minha Agenda</h2>
+    
+    <form id="contactForm">
+        <input type="hidden" id="userId"> <div class="form-group">
+            <label>Nome:</label>
+            <input type="text" id="name" required placeholder="Ex: Maria Silva">
+        </div>
+        <div class="form-group">
+            <label>Telefone:</label>
+            <input type="text" id="phone" required placeholder="(00) 00000-0000">
+        </div>
+        <div class="form-group">
+            <label>Email:</label>
+            <input type="email" id="email" placeholder="email@exemplo.com">
+        </div>
+        <button type="submit" id="btnSave">Salvar Contato</button>
+        <button type="button" id="btnCancel" onclick="resetForm()" style="display:none; width:100%; margin-top:10px; background:#6c757d; color:white; border:none; padding:10px; border-radius:5px; cursor:pointer;">Cancelar Edição</button>
+    </form>
+
+    <h3 style="margin-top: 40px;">Contatos Salvos</h3>
+    <ul id="contactList"></ul>
+
+    <script src="script.js"></script>
+</body>
+</html>
