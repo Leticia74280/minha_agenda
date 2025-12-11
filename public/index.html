@@ -5,29 +5,239 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agenda</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; max-width: 600px; margin: 2rem auto; padding: 20px; background-color: #f4f6f9; }
-        h2 { text-align: center; color: #333; }
-        form { background: white; padding: 25px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        :root {
+            --bg-primary: #f4f6f9;
+            --bg-secondary: #ffffff;
+            --text-primary: #333;
+            --text-secondary: #555;
+            --text-muted: #666;
+            --border-color: #ddd;
+            --shadow: rgba(0,0,0,0.1);
+            --card-border: #007bff;
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #1a1a1a;
+            --bg-secondary: #2d2d2d;
+            --text-primary: #e0e0e0;
+            --text-secondary: #b0b0b0;
+            --text-muted: #888;
+            --border-color: #444;
+            --shadow: rgba(0,0,0,0.3);
+            --card-border: #4a90e2;
+        }
+
+        * { transition: background-color 0.3s ease, color 0.3s ease; }
+        
+        body { 
+            font-family: 'Segoe UI', sans-serif; 
+            max-width: 600px; 
+            margin: 2rem auto; 
+            padding: 20px; 
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        h2 { 
+            text-align: center; 
+            color: var(--text-primary);
+            margin: 0;
+            flex: 1;
+        }
+        
+        #themeToggle {
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            cursor: pointer;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        #themeToggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 8px var(--shadow);
+        }
+
+        .stats-bar {
+            background: var(--bg-secondary);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px var(--shadow);
+            display: flex;
+            justify-content: space-around;
+            text-align: center;
+        }
+
+        .stat-item {
+            flex: 1;
+        }
+
+        .stat-number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #007bff;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .search-container {
+            background: var(--bg-secondary);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px var(--shadow);
+        }
+
+        #searchInput {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 14px;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+        }
+
+        #searchInput:focus {
+            outline: none;
+            border-color: #007bff;
+        }
+        
+        form { 
+            background: var(--bg-secondary); 
+            padding: 25px; 
+            border-radius: 10px; 
+            box-shadow: 0 4px 6px var(--shadow);
+        }
+        
         .form-group { margin-bottom: 15px; }
-        label { display: block; margin-bottom: 5px; font-weight: 600; color: #555; }
-        input { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; }
-        button#btnSave { width: 100%; padding: 12px; background-color: #28a745; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; transition: 0.3s; }
+        
+        label { 
+            display: block; 
+            margin-bottom: 5px; 
+            font-weight: 600; 
+            color: var(--text-secondary);
+        }
+        
+        input { 
+            width: 100%; 
+            padding: 10px; 
+            border: 1px solid var(--border-color); 
+            border-radius: 5px; 
+            box-sizing: border-box;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+        }
+        
+        button#btnSave { 
+            width: 100%; 
+            padding: 12px; 
+            background-color: #28a745; 
+            color: white; 
+            border: none; 
+            border-radius: 5px; 
+            font-size: 16px; 
+            cursor: pointer; 
+            transition: 0.3s; 
+        }
+        
         button#btnSave:hover { background-color: #218838; }
         
-        ul { list-style: none; padding: 0; margin-top: 30px; }
-        li { background: white; margin-bottom: 15px; padding: 15px; border-radius: 8px; border-left: 5px solid #007bff; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
-        .info strong { display: block; font-size: 1.1em; color: #333; }
-        .info span { display: block; color: #666; font-size: 0.9em; margin-top: 2px; }
-        .actions button { padding: 6px 12px; border: none; border-radius: 4px; cursor: pointer; margin-left: 5px; font-size: 0.9em; }
+        ul { 
+            list-style: none; 
+            padding: 0; 
+            margin-top: 30px; 
+        }
+        
+        li { 
+            background: var(--bg-secondary); 
+            margin-bottom: 15px; 
+            padding: 15px; 
+            border-radius: 8px; 
+            border-left: 5px solid var(--card-border); 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            box-shadow: 0 2px 4px var(--shadow);
+        }
+        
+        .info strong { 
+            display: block; 
+            font-size: 1.1em; 
+            color: var(--text-primary);
+        }
+        
+        .info span { 
+            display: block; 
+            color: var(--text-muted); 
+            font-size: 0.9em; 
+            margin-top: 2px; 
+        }
+        
+        .actions button { 
+            padding: 6px 12px; 
+            border: none; 
+            border-radius: 4px; 
+            cursor: pointer; 
+            margin-left: 5px; 
+            font-size: 0.9em; 
+        }
+        
         .btn-edit { background-color: #ffc107; color: #333; }
         .btn-delete { background-color: #dc3545; color: white; }
+
+        .no-results {
+            text-align: center;
+            padding: 40px;
+            color: var(--text-muted);
+            font-style: italic;
+        }
     </style>
 </head>
 <body>
-    <h2>📒 Minha Agenda</h2>
+    <div class="header-container">
+        <div style="width: 45px;"></div>
+        <h2>📒 Minha Agenda</h2>
+        <button id="themeToggle" title="Alternar tema">🌙</button>
+    </div>
+
+    <div class="stats-bar">
+        <div class="stat-item">
+            <div class="stat-number" id="totalContacts">0</div>
+            <div class="stat-label">Total</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-number" id="filteredContacts">0</div>
+            <div class="stat-label">Exibindo</div>
+        </div>
+    </div>
+
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="🔍 Buscar por nome, telefone ou email...">
+    </div>
     
     <form id="contactForm">
-        <input type="hidden" id="userId"> <div class="form-group">
+        <input type="hidden" id="userId">
+        <div class="form-group">
             <label>Nome:</label>
             <input type="text" id="name" required placeholder="Ex: Maria Silva">
         </div>
