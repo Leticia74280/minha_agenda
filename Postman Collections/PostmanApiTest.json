@@ -1,0 +1,57 @@
+{
+	"info": {
+		"_postman_id": "bb6a32c8-d1ed-480d-90ad-28cfad281e8a",
+		"name": "Minha_Agenda",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "cadastro",
+			"id": "367fbcee-c264-4dbd-a148-714f5d25ab5b",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "listagem",
+			"id": "b62a3daa-ac31-473e-b8bb-bbe9e33fbcf2",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "edição",
+			"id": "f00156ff-e8f4-4c23-b3f1-87085200475c",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"id": "d796e341-87e6-472b-8d7b-9ea0c8f5ed00",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
