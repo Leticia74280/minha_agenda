@@ -12,8 +12,18 @@
 				"disableBodyPruning": true
 			},
 			"request": {
-				"method": "GET",
-				"header": []
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Usuário Teste Owsvaldo\",\n    \"phone\": \"(11) 99999-8888\",\n    \"email\": \"teste@postman.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/api/contacts"
 			},
 			"response": []
 		},
@@ -25,7 +35,8 @@
 			},
 			"request": {
 				"method": "GET",
-				"header": []
+				"header": [],
+				"url": "http://localhost:3000/api/contacts"
 			},
 			"response": []
 		},
@@ -36,20 +47,31 @@
 				"disableBodyPruning": true
 			},
 			"request": {
-				"method": "GET",
-				"header": []
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Geovanna Thereza Editado de novo\",\n    \"phone\": \"(11) 00000-0000\",\n    \"email\": \"editado@postman.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:3000/api/contacts/1"
 			},
 			"response": []
 		},
 		{
-			"name": "New Request",
+			"name": "Delete",
 			"id": "d796e341-87e6-472b-8d7b-9ea0c8f5ed00",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
 			"request": {
-				"method": "GET",
-				"header": []
+				"method": "DELETE",
+				"header": [],
+				"url": "http://localhost:3000/api/contacts/4"
 			},
 			"response": []
 		}
